@@ -20,4 +20,4 @@ version = "1.0"
 features = ["parallel"]
 
 [build-dependencies.bindgen]
-version = "0.68"
+version = "0.71"
