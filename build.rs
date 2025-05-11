@@ -1,6 +1,18 @@
-use std::{env, path::PathBuf};
+use std::path::PathBuf;
 const SOUNDTOUCH_DIR: &str = "soundtouch-2_3_2";
 
+#[cfg(not(feature = "bundled"))]
+fn link_system() {
+    // if the user set SOUND_TOUCH_LIB_DIR, add it
+    if let Ok(dir) = std::env::var("SOUNDTOUCH_LIB_DIR") {
+        println!("cargo:rustc-link-search=native={}", dir);
+    }
+    // dynamic link against system SoundTouch
+    println!("cargo:rustc-link-lib=dylib=SoundTouch");
+    println!("cargo:rustc-link-lib=dylib=stdc++");
+}
+
+#[cfg(feature = "bundled")]
 fn build() {
     let soundtouch_dir = std::path::Path::new(SOUNDTOUCH_DIR);
     let source_dir = soundtouch_dir.join("source").join("SoundTouch");
@@ -93,5 +105,8 @@ pub use root::{soundtouch::*, TDStretch, uint};
         .write_to_file(out)
         .expect("Couldn't write bindings!");
 
+    #[cfg(feature = "bundled")]
     build();
+    #[cfg(not(feature = "bundled"))]
+    link_system();
 }
