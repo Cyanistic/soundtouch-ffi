@@ -43,7 +43,7 @@ const SOUNDTOUCH_DIR: &str = "soundtouch-2_3_2";
 
 fn build() {
 
-    let out_dir = std::env::var("OUT_DIR").expect("OUT_DIR is not set by cargo");
+    // let out_dir = std::env::var("OUT_DIR").expect("OUT_DIR is not set by cargo");
     let soundtouch_dir = std::path::Path::new(SOUNDTOUCH_DIR);
     let source_dir = soundtouch_dir.join("source").join("SoundTouch");
 
@@ -100,11 +100,11 @@ pub use root::{soundtouch::*, TDStretch, uint};
     let mut out = PathBuf::new();
     out.push("src");
     out.push("lib.rs");
-    let mut header = PathBuf::from("wrapper.hpp");
+    let header = PathBuf::from("wrapper.hpp");
 
     let bindings = bindgen::Builder::default().header(header.display().to_string())
                                               .raw_line(PREPEND_LIB)
-                                              .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+                                              .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
                                               .generate_comments(false)
                                               .layout_tests(false)
                                               .ctypes_prefix("libc")
