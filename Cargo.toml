@@ -10,10 +10,7 @@ readme = "README.md"
 repository = "https://github.com/Cyanistic/soundtouch-ffi"
 version = "0.2.1"
 links = "SoundTouch"
-
-[dependencies.libc]
-version = "0.2"
-default-features = false
+rust-version = "1.70.0"
 
 [build-dependencies.cc]
 version = "1.0"
@@ -21,3 +18,7 @@ features = ["parallel"]
 
 [build-dependencies.bindgen]
 version = "0.71"
+
+[dev-dependencies]
+hound = "3.5"
+num-traits = "0.2.19"
