@@ -1,8 +1,9 @@
 use std::path::PathBuf;
 const SOUNDTOUCH_DIR: &str = "soundtouch-2_3_2";
 
-#[cfg(not(feature = "bundled"))]
 fn link_system() {
+    // Re-run if user changes this env var
+    println!("cargo:rerun-if-env-changed=SOUNDTOUCH_LIB_DIR");
     // if the user set SOUND_TOUCH_LIB_DIR, add it
     if let Ok(dir) = std::env::var("SOUNDTOUCH_LIB_DIR") {
         println!("cargo:rustc-link-search=native={}", dir);
@@ -12,7 +13,6 @@ fn link_system() {
     println!("cargo:rustc-link-lib=dylib=stdc++");
 }
 
-#[cfg(feature = "bundled")]
 fn build() {
     let soundtouch_dir = std::path::Path::new(SOUNDTOUCH_DIR);
     let source_dir = soundtouch_dir.join("source").join("SoundTouch");
@@ -105,8 +105,28 @@ pub use root::{soundtouch::*, TDStretch, uint};
         .write_to_file(out)
         .expect("Couldn't write bindings!");
 
-    #[cfg(feature = "bundled")]
-    build();
-    #[cfg(not(feature = "bundled"))]
+    // Platform default logic when no feature is explicitly set:
+    // - musl => static
+    // - linux/bsd, non-musl => dynamic
+    // - macos => static
+    // - windows => static
+
+    #[cfg(all(feature = "bundled", feature = "dynamic"))]
+    compile_error!("Choose exactly one of 'bundled' or 'dynamic'.");
+
+    // If user explicitly opted into dynamic (feature = "dynamic"), override below.
+    #[cfg(all(not(feature = "bundled"), any(
+        // dynamic by default: linux & bsd non-musl
+        all(unix, not(target_env = "musl"), not(target_os = "macos"))
+    , feature = "dynamic")))]
     link_system();
+
+    #[cfg(any(
+        feature = "bundled",
+        // static by default: musl, macos, windows
+        all(unix, target_env = "musl", not(feature = "dynamic")),
+        target_os = "macos",
+        windows
+    ))]
+    build();
 }

@@ -13,11 +13,16 @@ links = "SoundTouch"
 rust-version = "1.70.0"
 
 [features]
-default = ["bundled"]
-bundled = ["dep:cc"]
+# Default: platform-appropriate choice
+# bundled = static linking of bundled sources
+# dynamic = dynamic linking against system lib
+default = []
+bundled = []
+# dynamic feature forces dynamic linking on all platforms
+dynamic = []
 
 [build-dependencies]
-cc = { version = "1.0", features = ["parallel"], optional = true }
+cc = { version = "1.0", features = ["parallel"] }
 bindgen = "0.71"
 
 [dev-dependencies]
