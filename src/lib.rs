@@ -72,6 +72,11 @@ pub mod root {
         pub type vector_allocator_type = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct vector__Guard_alloc {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct vector__Temporary_value {
             pub _address: u8,
         }
