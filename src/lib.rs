@@ -6,7 +6,7 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
-pub use root::{soundtouch::*, TDStretch, uint};
+pub use root::{*, soundtouch::*};
 
 
 #[allow(non_snake_case, non_camel_case_types, non_upper_case_globals)]
@@ -26,18 +26,16 @@ pub mod root {
     pub mod std {
         #[allow(unused_imports)]
         use self::super::super::root;
-        pub mod __detail {
-            #[allow(unused_imports)]
-            use self::super::super::super::root;
-        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct allocator {
             pub _address: u8,
         }
-        pub type allocator_value_type = u8;
         pub type allocator_size_type = u64;
         pub type allocator_difference_type = u64;
+        pub type allocator_value_type = u8;
+        pub type allocator_propagate_on_container_move_assignment = u8;
+        pub type allocator_is_always_equal = u8;
         pub type allocator_pointer = u8;
         pub type allocator_const_pointer = u8;
         pub type allocator_reference = u8;
@@ -48,48 +46,37 @@ pub mod root {
             pub _address: u8,
         }
         pub type allocator_rebind_other = u8;
-        pub type allocator_propagate_on_container_move_assignment = u8;
-        pub type allocator_is_always_equal = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct vector {
             pub _address: u8,
         }
-        pub type vector__Base = u8;
-        pub type vector__Tp_alloc_type = u8;
-        pub type vector__Alloc_traits = u8;
+        pub type vector___default_allocator_type = u8;
+        pub type vector___self = u8;
         pub type vector_value_type = u8;
-        pub type vector_pointer = u8;
-        pub type vector_const_pointer = u8;
+        pub type vector_allocator_type = u8;
+        pub type vector___alloc_traits = u8;
         pub type vector_reference = u8;
         pub type vector_const_reference = u8;
+        pub type vector_size_type = u8;
+        pub type vector_difference_type = u8;
+        pub type vector_pointer = u8;
+        pub type vector_const_pointer = u8;
         pub type vector_iterator = u8;
         pub type vector_const_iterator = u8;
-        pub type vector_const_reverse_iterator = u8;
         pub type vector_reverse_iterator = u8;
-        pub type vector_size_type = u64;
-        pub type vector_difference_type = u64;
-        pub type vector_allocator_type = u8;
+        pub type vector_const_reverse_iterator = u8;
+        pub type vector___trivially_relocatable = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct vector__Guard_alloc {
+        pub struct vector___destroy_vector {
             pub _address: u8,
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
-        pub struct vector__Temporary_value {
+        pub struct vector__ConstructTransaction {
             pub _address: u8,
         }
-        #[repr(C)]
-        #[repr(align(1))]
-        #[derive(Copy, Clone)]
-        pub union vector__Temporary_value__Storage {
-            pub _bindgen_opaque_blob: u8,
-        }
-    }
-    pub mod __gnu_cxx {
-        #[allow(unused_imports)]
-        use self::super::super::root;
     }
     pub type uint = ::core::ffi::c_uint;
     pub mod soundtouch {
@@ -132,7 +119,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Returns a pointer to the end of the used part of the sample buffer (i.e.\n where the new samples are to be inserted). This function may be used for\n inserting new samples into the sample buffer directly. Please be careful\n not corrupt the book-keeping!\n\n When using this function as means for inserting new samples, also remember\n to increase the sample count afterwards, by calling  the\n 'putSamples(numSamples)' function."]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer6ptrEndEj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer6ptrEndEj"]
             pub fn FIFOSampleBuffer_ptrEnd(
                 this: *mut root::soundtouch::FIFOSampleBuffer,
                 slackCapacity: root::uint,
@@ -140,7 +127,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Sets number of channels, 1 = mono, 2 = stereo."]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer11setChannelsEi"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer11setChannelsEi"]
             pub fn FIFOSampleBuffer_setChannels(
                 this: *mut root::soundtouch::FIFOSampleBuffer,
                 numChannels: ::core::ffi::c_int,
@@ -148,7 +135,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Add silence to end of buffer"]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer9addSilentEj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer9addSilentEj"]
             pub fn FIFOSampleBuffer_addSilent(
                 this: *mut root::soundtouch::FIFOSampleBuffer,
                 nSamples: root::uint,
@@ -156,7 +143,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Constructor"]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBufferC1Ei"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBufferC1Ei"]
             pub fn FIFOSampleBuffer_FIFOSampleBuffer(
                 this: *mut root::soundtouch::FIFOSampleBuffer,
                 numChannels: ::core::ffi::c_int,
@@ -187,21 +174,21 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " destructor"]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBufferD1Ev"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBufferD1Ev"]
             pub fn FIFOSampleBuffer_FIFOSampleBuffer_destructor(
                 this: *mut root::soundtouch::FIFOSampleBuffer,
             );
         }
         unsafe extern "C" {
             #[doc = " Returns a pointer to the beginning of the output samples.\n This function is provided for accessing the output samples directly.\n Please be careful for not to corrupt the book-keeping!\n\n When using this function to output samples, also remember to 'remove' the\n output samples from the buffer by calling the\n 'receiveSamples(numSamples)' function"]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer8ptrBeginEv"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer8ptrBeginEv"]
             pub fn FIFOSampleBuffer_ptrBegin(
                 this: *mut ::core::ffi::c_void,
             ) -> *mut root::soundtouch::SAMPLETYPE;
         }
         unsafe extern "C" {
             #[doc = " Adds 'numSamples' pcs of samples from the 'samples' memory position to\n the sample buffer."]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer10putSamplesEPKfj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer10putSamplesEPKfj"]
             pub fn FIFOSampleBuffer_putSamples(
                 this: *mut ::core::ffi::c_void,
                 samples: *const root::soundtouch::SAMPLETYPE,
@@ -210,7 +197,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Adjusts the book-keeping to increase number of samples in the buffer without\n copying any actual samples.\n\n This function is used to update the number of samples in the sample buffer\n when accessing the buffer directly with 'ptrEnd' function. Please be\n careful though!"]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer10putSamplesEj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer10putSamplesEj"]
             pub fn FIFOSampleBuffer_putSamples1(
                 this: *mut ::core::ffi::c_void,
                 numSamples: root::uint,
@@ -218,7 +205,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Output samples from beginning of the sample buffer. Copies requested samples to\n output buffer and removes them from the sample buffer. If there are less than\n 'numsample' samples in the buffer, returns all that available.\n\n \\return Number of samples returned."]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer14receiveSamplesEPfj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer14receiveSamplesEPfj"]
             pub fn FIFOSampleBuffer_receiveSamples(
                 this: *mut ::core::ffi::c_void,
                 output: *mut root::soundtouch::SAMPLETYPE,
@@ -227,7 +214,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Adjusts book-keeping so that given number of samples are removed from beginning of the\n sample buffer without copying them anywhere.\n\n Used to reduce the number of samples in the buffer when accessing the sample buffer directly\n with 'ptrBegin' function."]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer14receiveSamplesEj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer14receiveSamplesEj"]
             pub fn FIFOSampleBuffer_receiveSamples1(
                 this: *mut ::core::ffi::c_void,
                 maxSamples: root::uint,
@@ -235,22 +222,22 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Returns number of samples currently available."]
-            #[link_name = "\u{1}_ZNK10soundtouch16FIFOSampleBuffer10numSamplesEv"]
+            #[link_name = "\u{1}__ZNK10soundtouch16FIFOSampleBuffer10numSamplesEv"]
             pub fn FIFOSampleBuffer_numSamples(this: *mut ::core::ffi::c_void) -> root::uint;
         }
         unsafe extern "C" {
             #[doc = " Returns nonzero if there aren't any samples available for outputting."]
-            #[link_name = "\u{1}_ZNK10soundtouch16FIFOSampleBuffer7isEmptyEv"]
+            #[link_name = "\u{1}__ZNK10soundtouch16FIFOSampleBuffer7isEmptyEv"]
             pub fn FIFOSampleBuffer_isEmpty(this: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
         }
         unsafe extern "C" {
             #[doc = " Clears all the samples."]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer5clearEv"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer5clearEv"]
             pub fn FIFOSampleBuffer_clear(this: *mut ::core::ffi::c_void);
         }
         unsafe extern "C" {
             #[doc = " allow trimming (downwards) amount of samples in pipeline.\n Returns adjusted amount of samples"]
-            #[link_name = "\u{1}_ZN10soundtouch16FIFOSampleBuffer21adjustAmountOfSamplesEj"]
+            #[link_name = "\u{1}__ZN10soundtouch16FIFOSampleBuffer21adjustAmountOfSamplesEj"]
             pub fn FIFOSampleBuffer_adjustAmountOfSamples(
                 this: *mut ::core::ffi::c_void,
                 numSamples: root::uint,
@@ -269,11 +256,11 @@ pub mod root {
             pub prev: [f64; 5usize],
         }
         unsafe extern "C" {
-            #[link_name = "\u{1}_ZN10soundtouch11IIR2_filter6updateEf"]
+            #[link_name = "\u{1}__ZN10soundtouch11IIR2_filter6updateEf"]
             pub fn IIR2_filter_update(this: *mut root::soundtouch::IIR2_filter, x: f32) -> f32;
         }
         unsafe extern "C" {
-            #[link_name = "\u{1}_ZN10soundtouch11IIR2_filterC1EPKd"]
+            #[link_name = "\u{1}__ZN10soundtouch11IIR2_filterC1EPKd"]
             pub fn IIR2_filter_IIR2_filter(
                 this: *mut root::soundtouch::IIR2_filter,
                 lpf_coeffs: *const f64,
@@ -330,7 +317,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Updates auto-correlation function for given number of decimated samples that\n are read from the internal 'buffer' pipe (samples aren't removed from the pipe\n though)."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect11updateXCorrEi"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect11updateXCorrEi"]
             pub fn BPMDetect_updateXCorr(
                 this: *mut root::soundtouch::BPMDetect,
                 process_samples: ::core::ffi::c_int,
@@ -338,7 +325,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Decimates samples to approx. 500 Hz.\n\n \\return Number of output samples."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect8decimateEPfPKfi"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect8decimateEPfPKfi"]
             pub fn BPMDetect_decimate(
                 this: *mut root::soundtouch::BPMDetect,
                 dest: *mut root::soundtouch::SAMPLETYPE,
@@ -348,7 +335,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Calculates amplitude envelope for the buffer of samples.\n Result is output to 'samples'."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect12calcEnvelopeEPfi"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect12calcEnvelopeEPfi"]
             pub fn BPMDetect_calcEnvelope(
                 this: *mut root::soundtouch::BPMDetect,
                 samples: *mut root::soundtouch::SAMPLETYPE,
@@ -357,11 +344,11 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " remove constant bias from xcorr data"]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect10removeBiasEv"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect10removeBiasEv"]
             pub fn BPMDetect_removeBias(this: *mut root::soundtouch::BPMDetect);
         }
         unsafe extern "C" {
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect13updateBeatPosEi"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect13updateBeatPosEi"]
             pub fn BPMDetect_updateBeatPos(
                 this: *mut root::soundtouch::BPMDetect,
                 process_samples: ::core::ffi::c_int,
@@ -369,7 +356,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Inputs a block of samples for analyzing: Envelopes the samples and then\n updates the autocorrelation estimation. When whole song data has been input\n in smaller blocks using this function, read the resulting bpm with 'getBpm'\n function.\n\n Notice that data in 'samples' array can be disrupted in processing."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect12inputSamplesEPKfi"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect12inputSamplesEPKfi"]
             pub fn BPMDetect_inputSamples(
                 this: *mut root::soundtouch::BPMDetect,
                 samples: *const root::soundtouch::SAMPLETYPE,
@@ -378,12 +365,12 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Analyzes the results and returns the BPM rate. Use this function to read result\n after whole song data has been input to the class by consecutive calls of\n 'inputSamples' function.\n\n \\return Beats-per-minute rate, or zero if detection failed."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect6getBpmEv"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect6getBpmEv"]
             pub fn BPMDetect_getBpm(this: *mut root::soundtouch::BPMDetect) -> f32;
         }
         unsafe extern "C" {
             #[doc = " Get beat position arrays. Note: The array includes also really low beat detection values\n in absence of clear strong beats. Consumer may wish to filter low values away.\n - \"pos\" receive array of beat positions\n - \"values\" receive array of beat detection strengths\n - max_num indicates max.size of \"pos\" and \"values\" array.\n\n You can query a suitable array sized by calling this with NULL in \"pos\" & \"values\".\n\n \\return number of beats in the arrays."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetect8getBeatsEPfS1_i"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetect8getBeatsEPfS1_i"]
             pub fn BPMDetect_getBeats(
                 this: *mut root::soundtouch::BPMDetect,
                 pos: *mut f32,
@@ -393,7 +380,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Constructor."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetectC1Eii"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetectC1Eii"]
             pub fn BPMDetect_BPMDetect(
                 this: *mut root::soundtouch::BPMDetect,
                 numChannels: ::core::ffi::c_int,
@@ -463,7 +450,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Destructor."]
-            #[link_name = "\u{1}_ZN10soundtouch9BPMDetectD1Ev"]
+            #[link_name = "\u{1}__ZN10soundtouch9BPMDetectD1Ev"]
             pub fn BPMDetect_BPMDetect_destructor(this: *mut root::soundtouch::BPMDetect);
         }
         #[repr(C)]
@@ -495,32 +482,32 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Get SoundTouch library version string"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch16getVersionStringEv"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch16getVersionStringEv"]
             pub fn SoundTouch_getVersionString() -> *const ::core::ffi::c_char;
         }
         unsafe extern "C" {
             #[doc = " Get SoundTouch library version Id"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch12getVersionIdEv"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch12getVersionIdEv"]
             pub fn SoundTouch_getVersionId() -> root::uint;
         }
         unsafe extern "C" {
             #[doc = " Sets new rate control value. Normal rate = 1.0, smaller values\n represent slower rate, larger faster rates."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch7setRateEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch7setRateEd"]
             pub fn SoundTouch_setRate(this: *mut root::soundtouch::SoundTouch, newRate: f64);
         }
         unsafe extern "C" {
             #[doc = " Sets new tempo control value. Normal tempo = 1.0, smaller values\n represent slower tempo, larger faster tempo."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch8setTempoEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch8setTempoEd"]
             pub fn SoundTouch_setTempo(this: *mut root::soundtouch::SoundTouch, newTempo: f64);
         }
         unsafe extern "C" {
             #[doc = " Sets new rate control value as a difference in percents compared\n to the original rate (-50 .. +100 %)"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch13setRateChangeEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch13setRateChangeEd"]
             pub fn SoundTouch_setRateChange(this: *mut root::soundtouch::SoundTouch, newRate: f64);
         }
         unsafe extern "C" {
             #[doc = " Sets new tempo control value as a difference in percents compared\n to the original tempo (-50 .. +100 %)"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch14setTempoChangeEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch14setTempoChangeEd"]
             pub fn SoundTouch_setTempoChange(
                 this: *mut root::soundtouch::SoundTouch,
                 newTempo: f64,
@@ -528,12 +515,12 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Sets new pitch control value. Original pitch = 1.0, smaller values\n represent lower pitches, larger values higher pitch."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch8setPitchEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch8setPitchEd"]
             pub fn SoundTouch_setPitch(this: *mut root::soundtouch::SoundTouch, newPitch: f64);
         }
         unsafe extern "C" {
             #[doc = " Sets pitch change in octaves compared to the original pitch\n (-1.00 .. +1.00)"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch15setPitchOctavesEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch15setPitchOctavesEd"]
             pub fn SoundTouch_setPitchOctaves(
                 this: *mut root::soundtouch::SoundTouch,
                 newPitch: f64,
@@ -541,14 +528,14 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Sets pitch change in semi-tones compared to the original pitch\n (-12 .. +12)"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch17setPitchSemiTonesEi"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch17setPitchSemiTonesEi"]
             pub fn SoundTouch_setPitchSemiTones(
                 this: *mut root::soundtouch::SoundTouch,
                 newPitch: ::core::ffi::c_int,
             );
         }
         unsafe extern "C" {
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch17setPitchSemiTonesEd"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch17setPitchSemiTonesEd"]
             pub fn SoundTouch_setPitchSemiTones1(
                 this: *mut root::soundtouch::SoundTouch,
                 newPitch: f64,
@@ -556,7 +543,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Sets the number of channels, 1 = mono, 2 = stereo"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch11setChannelsEj"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch11setChannelsEj"]
             pub fn SoundTouch_setChannels(
                 this: *mut root::soundtouch::SoundTouch,
                 numChannels: root::uint,
@@ -564,7 +551,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Sets sample rate."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch13setSampleRateEj"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch13setSampleRateEj"]
             pub fn SoundTouch_setSampleRate(
                 this: *mut root::soundtouch::SoundTouch,
                 srate: root::uint,
@@ -572,19 +559,19 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Get ratio between input and output audio durations, useful for calculating\n processed output duration: if you'll process a stream of N samples, then\n you can expect to get out N * getInputOutputSampleRatio() samples.\n\n This ratio will give accurate target duration ratio for a full audio track,\n given that the the whole track is processed with same processing parameters.\n\n If this ratio is applied to calculate intermediate offsets inside a processing\n stream, then this ratio is approximate and can deviate +- some tens of milliseconds\n from ideal offset, yet by end of the audio stream the duration ratio will become\n exact.\n\n Example: if processing with parameters \"-tempo=15 -pitch=-3\", the function\n will return value 0.8695652... Now, if processing an audio stream whose duration\n is exactly one million audio samples, then you can expect the processed\n output duration  be 0.869565 * 1000000 = 869565 samples."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch25getInputOutputSampleRatioEv"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch25getInputOutputSampleRatioEv"]
             pub fn SoundTouch_getInputOutputSampleRatio(
                 this: *mut root::soundtouch::SoundTouch,
             ) -> f64;
         }
         unsafe extern "C" {
             #[doc = " Note: This function is meant for extracting the last samples of a sound\n stream. This function may introduce additional blank samples in the end\n of the sound stream, and thus it's not recommended to call this function\n in the middle of a sound stream."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch5flushEv"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch5flushEv"]
             pub fn SoundTouch_flush(this: *mut root::soundtouch::SoundTouch);
         }
         unsafe extern "C" {
             #[doc = " Changes a setting controlling the processing system behaviour. See the\n 'SETTING_...' defines for available setting ID's.\n\n \\return 'true' if the setting was successfully changed"]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch10setSettingEii"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch10setSettingEii"]
             pub fn SoundTouch_setSetting(
                 this: *mut root::soundtouch::SoundTouch,
                 settingId: ::core::ffi::c_int,
@@ -593,14 +580,14 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Reads a setting controlling the processing system behaviour. See the\n 'SETTING_...' defines for available setting ID's.\n\n \\return the setting value."]
-            #[link_name = "\u{1}_ZNK10soundtouch10SoundTouch10getSettingEi"]
+            #[link_name = "\u{1}__ZNK10soundtouch10SoundTouch10getSettingEi"]
             pub fn SoundTouch_getSetting(
                 this: *const root::soundtouch::SoundTouch,
                 settingId: ::core::ffi::c_int,
             ) -> ::core::ffi::c_int;
         }
         unsafe extern "C" {
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouchC1Ev"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouchC1Ev"]
             pub fn SoundTouch_SoundTouch(this: *mut root::soundtouch::SoundTouch);
         }
         impl SoundTouch {
@@ -680,12 +667,12 @@ pub mod root {
             }
         }
         unsafe extern "C" {
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouchD1Ev"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouchD1Ev"]
             pub fn SoundTouch_SoundTouch_destructor(this: *mut root::soundtouch::SoundTouch);
         }
         unsafe extern "C" {
             #[doc = " Adds 'numSamples' pcs of samples from the 'samples' memory position into\n the input of the object. Notice that sample rate _has_to_ be set before\n calling this function, otherwise throws a runtime_error exception."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch10putSamplesEPKfj"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch10putSamplesEPKfj"]
             pub fn SoundTouch_putSamples(
                 this: *mut ::core::ffi::c_void,
                 samples: *const root::soundtouch::SAMPLETYPE,
@@ -694,7 +681,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Output samples from beginning of the sample buffer. Copies requested samples to\n output buffer and removes them from the sample buffer. If there are less than\n 'numsample' samples in the buffer, returns all that available.\n\n \\return Number of samples returned."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch14receiveSamplesEPfj"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch14receiveSamplesEPfj"]
             pub fn SoundTouch_receiveSamples(
                 this: *mut ::core::ffi::c_void,
                 output: *mut root::soundtouch::SAMPLETYPE,
@@ -703,7 +690,7 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Adjusts book-keeping so that given number of samples are removed from beginning of the\n sample buffer without copying them anywhere.\n\n Used to reduce the number of samples in the buffer when accessing the sample buffer directly\n with 'ptrBegin' function."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch14receiveSamplesEj"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch14receiveSamplesEj"]
             pub fn SoundTouch_receiveSamples1(
                 this: *mut ::core::ffi::c_void,
                 maxSamples: root::uint,
@@ -711,14 +698,20 @@ pub mod root {
         }
         unsafe extern "C" {
             #[doc = " Clears all the samples in the object's output and internal processing\n buffers."]
-            #[link_name = "\u{1}_ZN10soundtouch10SoundTouch5clearEv"]
+            #[link_name = "\u{1}__ZN10soundtouch10SoundTouch5clearEv"]
             pub fn SoundTouch_clear(this: *mut ::core::ffi::c_void);
         }
         unsafe extern "C" {
             #[doc = " Returns number of samples currently unprocessed."]
-            #[link_name = "\u{1}_ZNK10soundtouch10SoundTouch21numUnprocessedSamplesEv"]
+            #[link_name = "\u{1}__ZNK10soundtouch10SoundTouch21numUnprocessedSamplesEv"]
             pub fn SoundTouch_numUnprocessedSamples(this: *mut ::core::ffi::c_void) -> root::uint;
         }
+    }
+    unsafe extern "C" {
+        pub fn soundtouch_numSamples(st: *mut root::soundtouch::SoundTouch) -> ::core::ffi::c_uint;
+    }
+    unsafe extern "C" {
+        pub fn soundtouch_isEmpty(st: *mut root::soundtouch::SoundTouch) -> ::core::ffi::c_int;
     }
     #[doc = " Rate transposer class instance"]
     #[repr(C)]

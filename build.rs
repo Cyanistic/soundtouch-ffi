@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 const SOUNDTOUCH_DIR: &str = "soundtouch-2_3_2";
 
+#[allow(dead_code)] // Used conditionally based on target platform
 fn link_system() {
     // Re-run if user changes this env var
     println!("cargo:rerun-if-env-changed=SOUNDTOUCH_LIB_DIR");
@@ -35,9 +36,9 @@ fn build() {
         .file(source_dir.join("cpu_detect_x86.cpp"))
         .file(source_dir.join("mmx_optimized.cpp"))
         .file(source_dir.join("sse_optimized.cpp"))
+        .file("wrapper.cpp")
         .include(soundtouch_dir.join("include"))
         .include(soundtouch_dir.join("source/SoundTouch"))
-        .shared_flag(false)
         .pic(false)
         .warnings(false);
 
@@ -70,7 +71,7 @@ fn main() {
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
-pub use root::{soundtouch::*, TDStretch, uint};
+pub use root::{*, soundtouch::*};
 ";
 
     let mut out = PathBuf::new();
@@ -85,11 +86,8 @@ pub use root::{soundtouch::*, TDStretch, uint};
         .generate_comments(true)
         .layout_tests(false)
         .constified_enum_module("*")
-        .allowlist_type("soundtouch::SoundTouch")
-        .allowlist_type("soundtouch::SAMPLETYPE")
-        .allowlist_type("soundtouch::BPMDetect")
-        .allowlist_type("soundtouch::TDStretch")
-        .allowlist_type("soundtouch::RateTransposer")
+        .allowlist_type("soundtouch::.*")
+        .allowlist_function("soundtouch_.*")
         .opaque_type("std::.*")
         .manually_drop_union(".*")
         .default_non_copy_union_style(bindgen::NonCopyUnionStyle::ManuallyDrop)
