@@ -58,17 +58,11 @@ fn build() {
 }
 
 fn main() {
-    if std::env::var("DOCS_RS")
-        .map(|docs| docs == "1")
-        .unwrap_or(false)
-    {
-        //skip docs.rs build
-        return;
-    }
     let out_dir = PathBuf::from(std::env::var("OUT_DIR").unwrap());
     let out = out_dir.join("bindings.rs");
     let header = PathBuf::from("wrapper.hpp");
 
+    // Always generate bindings (needed for docs.rs)
     let bindings = bindgen::Builder::default()
         .header(header.display().to_string())
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
@@ -91,6 +85,11 @@ fn main() {
     bindings
         .write_to_file(out)
         .expect("Couldn't write bindings!");
+
+    // Skip C++ compilation on docs.rs (bindings are enough for documentation)
+    if std::env::var("DOCS_RS").map(|v| v == "1").unwrap_or(false) {
+        return;
+    }
 
     // Platform default logic when no feature is explicitly set:
     // - musl => static
