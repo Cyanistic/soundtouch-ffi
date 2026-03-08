@@ -65,23 +65,12 @@ fn main() {
         //skip docs.rs build
         return;
     }
-    const PREPEND_LIB: &'static str = "
-#![no_std]
-#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)]
-
-pub use root::{*, soundtouch::*};
-";
-
-    let mut out = PathBuf::new();
-    out.push("src");
-    out.push("lib.rs");
+    let out_dir = PathBuf::from(std::env::var("OUT_DIR").unwrap());
+    let out = out_dir.join("bindings.rs");
     let header = PathBuf::from("wrapper.hpp");
 
     let bindings = bindgen::Builder::default()
         .header(header.display().to_string())
-        .raw_line(PREPEND_LIB)
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         .generate_comments(true)
         .layout_tests(false)
